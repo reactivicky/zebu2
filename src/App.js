@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from 'react'
+import { ContextMenu, MenuItem, ContextMenuTrigger } from 'react-contextmenu'
+import './App.css'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+	const [selectedPuppy, setSelectedPuppy] = useState('puppy1.jpeg')
+
+	function handleClick(e, data) {
+		setSelectedPuppy(data.image)
+	}
+
+	return (
+		<div className='container'>
+			<h2>Right click to change image</h2>
+			<ContextMenuTrigger id='same_unique_identifier'>
+				<img src={selectedPuppy} alt='puppy' />
+			</ContextMenuTrigger>
+
+			<ContextMenu id='same_unique_identifier'>
+				<MenuItem data={{ image: 'puppy1.jpeg' }} onClick={handleClick}>
+					Puppy Image 1
+				</MenuItem>
+				<MenuItem divider />
+				<MenuItem data={{ image: 'puppy2.jpeg' }} onClick={handleClick}>
+					Puppy Image 2
+				</MenuItem>
+				<MenuItem divider />
+				<MenuItem data={{ image: 'puppy3.jpeg' }} onClick={handleClick}>
+					Puppy Image 3
+				</MenuItem>
+			</ContextMenu>
+		</div>
+	)
 }
 
-export default App;
+export default App
